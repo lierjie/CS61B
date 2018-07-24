@@ -143,10 +143,12 @@ public class Set {
 		  } else {
 			  try{
 				  ListNode currentNode = m.front();
-			     
+			      ListNode tempNode;
 			      while (currentNode.isValidNode()){
-				      tempCurrentNode = currentNode.next();
-				      tempCurrentNode.prev().remove();
+				      tempNode = currentNode.next();
+				      currentNode.remove();
+					  currentNode = tempNode;
+
 					  }
 			   }
 			  catch (InvalidNodeException e){
@@ -160,22 +162,28 @@ public class Set {
 	  ListNode currentNodeOfThis = m.front();
 	  ListNode currentNodeOfS = s.m.front();
 	  try {
+		  ListNode tempNodeS;
 		  while (currentNodeOfThis.isValidNode() && currentNodeOfS.isValidNode()){
 			  if (((Comparable)(currentNodeOfThis.item())).compareTo((Comparable)currentNodeOfS.item()) == 0){
 				  currentNodeOfThis = currentNodeOfThis.next();
 			      currentNodeOfS = currentNodeOfS.next();
 		      }
 		      else if (((Comparable)(currentNodeOfThis.item())).compareTo((Comparable)currentNodeOfS.item()) < 0){
-			      currentNodeOfThis = currentNodeOfThis.next();
-			      currentNodeOfThis.prev().remove();
+			      tempNodeS = currentNodeOfThis.next();
+
+			      currentNodeOfThis.remove();
+				  currentNodeOfThis = tempNodeS;
+
 			  
 		      } else {
 			      currentNodeOfS =  currentNodeOfS.next();
 		      }
 		      if (!currentNodeOfS.isValidNode()){
 			      while (currentNodeOfThis.isValidNode()){
-				      currentNodeOfThis = currentNodeOfThis.next();
-				      currentNodeOfThis.prev().remove();
+				      tempNodeS = currentNodeOfThis.next();
+				      currentNodeOfThis.remove();
+					  currentNodeOfThis = tempNodeS;
+
 				  }
 		      }
 		  }
